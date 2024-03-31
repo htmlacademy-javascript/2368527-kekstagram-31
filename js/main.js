@@ -24,6 +24,10 @@ const NAMES = [
   'Алла',
   'Максим',
   'Виктор',
+  'Геннадий',
+  'Григорий',
+  'Михаил',
+  'Арсен',
 ];
 const MASSAGES = [
   'Всё отлично!',
@@ -81,13 +85,14 @@ const createComment = () => {
   };
 };
 
+const generatePhotoId = createRandomIdGenerator(1, 25);
 const createPhoto = () => {
-  const generatePhotoId = createRandomIdGenerator(1, 25);
   const photoId = generatePhotoId();
+  const descriptionsIndex = getRandomInt(0, 11);
   return {
     id: photoId,
     url: `photos/${photoId}.jpg`,
-    description: DESCRIPTIONS[photoId - 1],
+    description: DESCRIPTIONS[descriptionsIndex],
     likes: getRandomInt(LIKE_MIN_COUNT, LIKE_MAX_COUNT),
     comments: Array.from(
       { length: getRandomInt(0, COMMENTS_MAX_COUNT) },
@@ -95,5 +100,4 @@ const createPhoto = () => {
     ),
   };
 };
-const data = Array.from({ length: SIMILAR_PHOTO_COUNT }, createPhoto);
-console.log(data);
+Array.from({ length: SIMILAR_PHOTO_COUNT }, createPhoto);
